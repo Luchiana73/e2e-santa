@@ -1,0 +1,7 @@
+{
+  "menuBoxesLink": ".layout-1__header-wrapper-fixed [href='/account/boxes']",
+  "boxToDelete": ":last-child > a.base--clickable > .user-card",
+  "toggleMenuButton": ".layout-1__header-wrapper-fixed .toggle-menu-button--inner",
+  "deleteBoxField": ":nth-child(2) > .form-page-group__main > .frm-wrapper > .frm",
+  "deleteBoxButton": ".layout-row-end .btn-service"
+}

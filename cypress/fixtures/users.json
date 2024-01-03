@@ -1,22 +1,22 @@
 {
-  "userAutor": {
-    "email": "ommelnikova+test@gmail.com",
-    "password": "test1234",
-    "name": "oksana-autor"
+  "userAuthor": {
+    "email": "luchiana.sv+test@gmail.com",
+    "password": "GRDSTL73",
+    "name": "svetlana-author"
   },
   "user1": {
-    "email": "ommelnikova+test1@gmail.com",
-    "password": "test1234",
-    "name": "oksana1"
+    "email": "luchiana.sv+test1@gmail.com",
+    "password": "GRDSTL73",
+    "name": "svetlana1"
   },
   "user2": {
-    "email": "ommelnikova+test2@gmail.com",
-    "password": "test1234",
-    "name": "oksana2"
+    "email": "luchiana.sv+test2@gmail.com",
+    "password": "GRDSTL73",
+    "name": "svetlana2"
   },
   "user3": {
-    "email": "ommelnikova+test3@gmail.com",
-    "password": "test1234",
-    "name": "oksana3"
+    "email": "luchiana.sv+test3@gmail.com",
+    "password": "GRDSTL73",
+    "name": "svetlana3"
   }
 }
