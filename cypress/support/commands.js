@@ -27,9 +27,29 @@ import "cypress-wait-until";
 
 const loginPage = require("../fixtures/pages/loginPage.json");
 const generalElements = require("../fixtures/pages/general.json");
+const inviteeBoxPage = require("../fixtures/pages/inviteeBoxPage.json");
+const inviteeDashboardPage = require("../fixtures/pages/inviteeDashboardPage.json");
 
 Cypress.Commands.add("login", (userName, password) => {
   cy.get(loginPage.loginField).type(userName);
   cy.get(loginPage.passwordField).type(password);
   cy.get(generalElements.submitButton).click({ force: true });
+});
+
+Cypress.Commands.add("addUserManually", (user, index) => {
+  cy.get(`:nth-child(${index}) > .frm-wrapper`).type(user.name);
+  cy.get(`:nth-child(${index + 1}) > .frm-wrapper`).type(user.email);
+});
+
+Cypress.Commands.add("createParticipantCard", (giftWishes) => {
+  cy.get(generalElements.submitButton).click();
+  cy.get(generalElements.arrowRight).click();
+  cy.get(generalElements.arrowRight).click();
+  cy.get(inviteeBoxPage.wishesInput).type(giftWishes);
+  cy.get(generalElements.arrowRight).click();
+  cy.get(inviteeDashboardPage.noticeForInvitee)
+    .invoke("text")
+    .then((text) => {
+      expect(text).to.contain("Это — анонимный чат с вашим Тайным Сантой");
+    });
 });

@@ -1,0 +1,5 @@
+{
+  "menuBoxesLink": ".layout-1__header-wrapper-fixed [href='/account/boxes']",
+  "boxCard": ":last-child > a.base--clickable > .user-card",
+  "menuButtonToggle": ".layout-1__header-wrapper-fixed .toggle-menu-button--inner"
+}

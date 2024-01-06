@@ -10,13 +10,18 @@
     "name": "svetlana1"
   },
   "user2": {
-    "email": "luchiana.sv+test2@gmail.com",
-    "password": "GRDSTL73",
+    "email": "luchiana.sv+2@gmail.com",
+    "password": "test1234",
     "name": "svetlana2"
   },
   "user3": {
-    "email": "luchiana.sv+test3@gmail.com",
-    "password": "GRDSTL73",
+    "email": "luchiana.sv+3@gmail.com",
+    "password": "test5678",
     "name": "svetlana3"
+  },
+  "user4": {
+    "email": "luchiana.sv+4@gmail.com",
+    "password": "test$123",
+    "name": "svetlana4"
   }
 }

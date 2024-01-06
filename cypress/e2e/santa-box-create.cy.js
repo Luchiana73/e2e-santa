@@ -3,8 +3,7 @@ const boxPage = require("../fixtures/pages/boxPage.json");
 const generalElements = require("../fixtures/pages/general.json");
 const dashboardPage = require("../fixtures/pages/dashboardPage.json");
 const invitePage = require("../fixtures/pages/invitePage.json");
-const inviteeBoxPage = require("../fixtures/pages/inviteeBoxPage.json");
-const inviteeDashboardPage = require("../fixtures/pages/inviteeDashboardPage.json");
+const menuBoxesPage = require("../fixtures/pages/menuBoxesPage.json");
 const deleteBoxPage = require("../fixtures/pages/deleteBoxPage.json");
 import { faker } from "@faker-js/faker";
 
@@ -21,7 +20,6 @@ describe("user can create a box and run it", () => {
   //пользователь 1 логинится
   //пользователь 1 запускает жеребьевку
   let newBoxName = faker.word.noun({ length: { min: 5, max: 10 } });
-  let wishes = `${faker.word.noun()} ${faker.word.adverb()} ${faker.word.adjective()}`;
   let maxAmount = 50;
   let currency = "Евро";
   let inviteLink;
@@ -55,7 +53,7 @@ describe("user can create a box and run it", () => {
       });
   });
 
-  it("add participants", () => {
+  it("add participants via link", () => {
     cy.get(generalElements.submitButton).click();
     cy.get(invitePage.inviteLink)
       .invoke("text")
@@ -64,35 +62,48 @@ describe("user can create a box and run it", () => {
       });
     cy.clearCookies();
   });
+
   it("approve as user1", () => {
+    let wishes = `${faker.word.noun()} ${faker.word.adverb()} ${faker.word.adjective()}`;
     cy.visit(inviteLink);
     cy.get(generalElements.submitButton).click();
     cy.contains("войдите").click();
     cy.login(users.user1.email, users.user1.password);
     cy.contains("Создать карточку участника").should("exist");
-    cy.get(generalElements.submitButton).click();
-    cy.get(generalElements.arrowRight).click();
-    cy.get(generalElements.arrowRight).click();
-    cy.get(inviteeBoxPage.wishesInput).type(wishes);
-    cy.get(generalElements.arrowRight).click();
-    cy.get(inviteeDashboardPage.noticeForInvitee)
-      .invoke("text")
-      .then((text) => {
-        expect(text).to.contain("Это — анонимный чат с вашим Тайным Сантой");
-      });
+    cy.createParticipantCard(wishes);
     cy.clearCookies();
   });
 
-  after("delete box", () => {
+  it("approve as user2", () => {
+    let wishes = `${faker.word.noun()} ${faker.word.adverb()} ${faker.word.adjective()}`;
+    cy.visit(inviteLink);
+    cy.get(generalElements.submitButton).click();
+    cy.contains("войдите").click();
+    cy.login(users.user2.email, users.user2.password);
+    cy.contains("Создать карточку участника").should("exist");
+    cy.createParticipantCard(wishes);
+    cy.clearCookies();
+  });
+
+  it("add user 3 and user 4 manually", () => {
     cy.visit("/login");
     cy.login(users.userAuthor.email, users.userAuthor.password);
     cy.waitUntil(
-      () => cy.get(deleteBoxPage.menuBoxesLink).should("be.visible"),
+      () => cy.get(menuBoxesPage.menuBoxesLink).should("be.visible"),
       { timeout: 10000 }
     );
-    cy.get(deleteBoxPage.menuBoxesLink).click();
-    cy.get(deleteBoxPage.boxToDelete).click();
-    cy.get(deleteBoxPage.toggleMenuButton).click();
+    cy.get(menuBoxesPage.menuBoxesLink).click();
+    cy.get(menuBoxesPage.boxCard).click();
+    cy.get(menuBoxesPage.menuButtonToggle).click();
+    cy.contains("Добавить участников").click({ force: true });
+    cy.get(invitePage.invitationToggle).check({ force: true });
+    cy.addUserManually(users.user3, 1);
+    cy.addUserManually(users.user4, 3);
+    cy.get(invitePage.inviteButton).click();
+  });
+
+  after("delete box", () => {
+    cy.get(menuBoxesPage.menuButtonToggle).click();
     cy.contains("Архивация и удаление").click({ force: true });
     cy.get(deleteBoxPage.deleteBoxField).type("Удалить коробку");
     cy.get(deleteBoxPage.deleteBoxButton).click();
