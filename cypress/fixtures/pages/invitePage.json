@@ -1,5 +1,6 @@
 {
   "inviteLink": ":nth-child(2) > .form-page-group__main b",
   "invitationToggle": "input[type='checkbox']",
-  "inviteButton": ".form-page__buttons > .btn-main"
+  "inviteButton": ".form-page__buttons > .btn-main",
+  "organizerCardButton": ".layout-row-center > .btn-main"
 }

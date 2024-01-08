@@ -1,0 +1,7 @@
+{
+  "drawLink": "a > .txt-secondary--med",
+  "advancedSettingsToggle": ".switch__toggle",
+  "circularDrawToggle": ":nth-child(3) > .switch-panel__toggle-wrap .switch__toggle",
+  "modalSubmitButton": ".santa-modal_content_buttons > .btn-main",
+  "santaTableLink": ".picture-notice__hint > a > .base--clickable"
+}

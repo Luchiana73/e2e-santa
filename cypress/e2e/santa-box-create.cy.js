@@ -3,8 +3,10 @@ const boxPage = require("../fixtures/pages/boxPage.json");
 const generalElements = require("../fixtures/pages/general.json");
 const dashboardPage = require("../fixtures/pages/dashboardPage.json");
 const invitePage = require("../fixtures/pages/invitePage.json");
+const inviteeBoxPage = require("../fixtures/pages/inviteeBoxPage.json");
 const menuBoxesPage = require("../fixtures/pages/menuBoxesPage.json");
 const deleteBoxPage = require("../fixtures/pages/deleteBoxPage.json");
+const drawPage = require("../fixtures/pages/drawPage.json");
 import { faker } from "@faker-js/faker";
 
 describe("user can create a box and run it", () => {
@@ -41,8 +43,15 @@ describe("user can create a box and run it", () => {
     cy.get(boxPage.currency).should("be.visible").select(currency);
     cy.get(generalElements.arrowRight).should("be.visible").click();
     cy.get(generalElements.arrowRight).click();
-    cy.contains("Дополнительные настройки").should("be.visible");
-    cy.get(generalElements.arrowRight).click();
+    cy.waitUntil(
+      () => cy.contains("Дополнительные настройки").should("be.visible"),
+      { timeout: 10000 }
+    );
+    cy.waitUntil(
+      () => cy.get(generalElements.arrowRight).should("be.visible"),
+      { timeout: 10000 }
+    );
+    cy.get(generalElements.arrowRight).click({ force: true });
     cy.get(dashboardPage.createdBoxName).should("have.text", newBoxName);
     cy.get(".layout-1__header-wrapper-fixed .toggle-menu-item span")
       .invoke("text")
@@ -100,6 +109,34 @@ describe("user can create a box and run it", () => {
     cy.addUserManually(users.user3, 1);
     cy.addUserManually(users.user4, 3);
     cy.get(invitePage.inviteButton).click();
+  });
+
+  it("add the organizer as participant", () => {
+    let wishes = `${faker.word.noun()} ${faker.word.adverb()} ${faker.word.adjective()}`;
+    cy.get(invitePage.organizerCardButton).click();
+    cy.get(generalElements.arrowRight).click({ force: true });
+    cy.get(generalElements.arrowRight).click({ force: true });
+    cy.get(inviteeBoxPage.wishesInput).type(wishes);
+    cy.get(generalElements.arrowRight).click({ force: true });
+  });
+
+  it("conduct the draw", () => {
+    cy.get(menuBoxesPage.menuBoxesLink).click();
+    cy.get(menuBoxesPage.boxCard).click();
+    cy.get(drawPage.drawLink).click();
+    cy.get(drawPage.advancedSettingsToggle).click();
+    cy.get(drawPage.circularDrawToggle).click();
+    cy.get(generalElements.submitButton).click();
+    cy.get(drawPage.modalSubmitButton).click({ force: true });
+    cy.waitUntil(() => cy.get(drawPage.santaTableLink).should("be.visible"), {
+      timeout: 10000,
+    });
+    cy.get(drawPage.santaTableLink).click();
+    cy.showSecreSanta(1);
+    cy.showSecreSanta(2);
+    cy.showSecreSanta(3);
+    cy.showSecreSanta(4);
+    cy.showSecreSanta(5);
   });
 
   after("delete box", () => {

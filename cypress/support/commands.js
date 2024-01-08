@@ -53,3 +53,8 @@ Cypress.Commands.add("createParticipantCard", (giftWishes) => {
       expect(text).to.contain("Это — анонимный чат с вашим Тайным Сантой");
     });
 });
+
+Cypress.Commands.add("showSecreSanta", (index) => {
+  cy.get(`:nth-child(${index}) > :nth-child(4) > .table-cell`).click();
+  cy.get(`:nth-child(${index}) > :nth-child(6) > .table-cell`).click();
+});
