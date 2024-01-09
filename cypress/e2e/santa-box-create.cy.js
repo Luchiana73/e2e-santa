@@ -7,6 +7,7 @@ const inviteeBoxPage = require("../fixtures/pages/inviteeBoxPage.json");
 const menuBoxesPage = require("../fixtures/pages/menuBoxesPage.json");
 const deleteBoxPage = require("../fixtures/pages/deleteBoxPage.json");
 const drawPage = require("../fixtures/pages/drawPage.json");
+const deleteBoxApi = require("../fixtures/pages/deleteBoxApiPage.json");
 import { faker } from "@faker-js/faker";
 
 describe("user can create a box and run it", () => {
@@ -25,6 +26,7 @@ describe("user can create a box and run it", () => {
   let maxAmount = 50;
   let currency = "Евро";
   let inviteLink;
+  let newBoxIdentifier;
 
   it("user logins and create a box", () => {
     cy.visit("/login");
@@ -34,7 +36,14 @@ describe("user can create a box and run it", () => {
       () => cy.contains("Придумайте название коробке").should("be.visible"),
       { timeout: 10000 }
     );
+
     cy.get(boxPage.boxNameField).should("be.visible").type(newBoxName);
+    cy.get(":nth-child(3) > .frm")
+      .should("be.visible")
+      .invoke("val")
+      .then((value) => {
+        newBoxIdentifier = value;
+      });
     cy.get(generalElements.arrowRight).click();
     cy.get(boxPage.sixthIcon).should("be.visible").click();
     cy.get(generalElements.arrowRight).click();
@@ -121,6 +130,10 @@ describe("user can create a box and run it", () => {
   });
 
   it("conduct the draw", () => {
+    cy.waitUntil(
+      () => cy.get(menuBoxesPage.menuBoxesLink).should("be.visible"),
+      { timeout: 10000 }
+    );
     cy.get(menuBoxesPage.menuBoxesLink).click();
     cy.get(menuBoxesPage.boxCard).click();
     cy.get(drawPage.drawLink).click();
@@ -140,9 +153,16 @@ describe("user can create a box and run it", () => {
   });
 
   after("delete box", () => {
-    cy.get(menuBoxesPage.menuButtonToggle).click();
-    cy.contains("Архивация и удаление").click({ force: true });
-    cy.get(deleteBoxPage.deleteBoxField).type("Удалить коробку");
-    cy.get(deleteBoxPage.deleteBoxButton).click();
+    cy.request({
+      method: "DELETE",
+      headers: {
+        Cookie: deleteBoxApi.cookie,
+      },
+      url: `/api/box/${newBoxIdentifier}`,
+    }).then((response) => {
+      expect(response.status).to.equal(200);
+      expect(response.statusText).to.equal("OK");
+    });
+    cy.get(newBoxName).should("not.exist");
   });
 });
