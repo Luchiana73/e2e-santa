@@ -6,9 +6,9 @@ Given("user is on secret santa login page", function () {
   cy.visit("/login");
 });
 
-// When("user logs in", function () {
-//   cy.login(users.userAuthor.email, users.userAuthor.password);
-// });
+Given("user logs in", function () {
+  cy.login(users.userAuthor.email, users.userAuthor.password);
+});
 
 Given("user logs in as {string} and {string}", function (string, string2) {
   cy.login(string, string2);

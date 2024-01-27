@@ -22,18 +22,15 @@ Examples:
     | login | password | 
     | luchiana.sv+test1@gmail.com  | GRDSTL73  |
     | luchiana.sv+2@gmail.com  | test1234  |
-  
-Scenario: User adds participants manually
-Given user is on secret santa login page
-When user logs in as "luchiana.sv+test@gmail.com" and "GRDSTL73"
-Then user adds partisipants manually with table
-    | name | email | 
-    | svetlana3  | luchiana.sv+3@gmail.com   |
-    | svetlana4  | luchiana.sv+4@gmail.com  |
+    | luchiana.sv+3@gmail.com  | test5678  |
+    | luchiana.sv+4@gmail.com  | test$123  |
 
 Scenario: User participates in the draw
-When user chooses to participate in the draw
-Then user creates participant card for himself  
+Given user is on secret santa login page
+When user logs in
+And user visits invite page
+Then user chooses to participate in the draw
+And user creates participant card for himself  
 
 Scenario: User conducts the draw and check the result
 Given user starts the draw

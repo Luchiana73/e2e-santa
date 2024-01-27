@@ -5,7 +5,14 @@
   "main": "cypress.config.js",
   "scripts": {
     "cy:run": "npx cypress run",
-    "cy:open": "npx cypress open"
+    "cy:open": "npx cypress open",
+    "cy:dashboard": "npx cypress run --record --key 2732aef1-fa93-433e-b6f6-10fb2b3ccc1a",
+    "cy:nokey:spec1": "cypress run --spec cypress/e2e/test/* --config-file cypress.config.js --browser chrome",
+    "cy:nokey:spec2": "cypress run --spec cypress/e2e/test2/* --config-file cypress.config2.js --browser electron",
+    "cy:nokey:parallel": "npm run cy:nokey:spec1 & npm run cy:nokey:spec2",
+    "cy:spec1": "cypress run --spec cypress/e2e/test/* --config-file cypress.config.js --browser chrome --record --key 2732aef1-fa93-433e-b6f6-10fb2b3ccc1a",
+    "cy:spec2": "cypress run --spec cypress/e2e/test2/* --config-file cypress.config2.js --browser electron --record --key 2732aef1-fa93-433e-b6f6-10fb2b3ccc1a",
+    "cy:parallel": "concurrently \"npm run cy:spec1 -- --group Chrome --ci-build-id %BUILD_ID% --parallel\" \"npm run cy:spec2 -- --group Electron --ci-build-id %BUILD_ID% --parallel\""
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +20,7 @@
     "@badeball/cypress-cucumber-preprocessor": "^20.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@faker-js/faker": "^8.3.1",
+    "concurrently": "^8.2.2",
     "cypress": "^13.6.2",
     "cypress-wait-until": "^3.0.1",
     "esbuild": "^0.19.11"

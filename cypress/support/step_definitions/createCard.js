@@ -2,6 +2,7 @@ import { Given } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
 const generalElements = require("../../fixtures/pages/general.json");
 const invitePage = require("../../fixtures/pages/invitePage.json");
+const menuBoxesPage = require("../../fixtures/pages/menuBoxesPage.json");
 let wishes;
 
 Given("user clicks the button create participant card", function () {
@@ -23,4 +24,11 @@ Given("user chooses to participate in the draw", function () {
 Given("user creates participant card for himself", function () {
   wishes = `${faker.word.noun()} ${faker.word.adverb()} ${faker.word.adjective()}`;
   cy.createParticipantCard(wishes);
+});
+
+Given("user visits invite page", function () {
+  cy.get(menuBoxesPage.menuBoxesLink).click();
+  cy.get(menuBoxesPage.boxCard).click();
+  cy.get(menuBoxesPage.menuButtonToggle).click();
+  cy.contains("Добавить участников").click({ force: true });
 });

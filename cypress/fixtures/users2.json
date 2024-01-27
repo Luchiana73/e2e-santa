@@ -1,0 +1,27 @@
+{
+  "userAuthor1": {
+    "email": "luchiana.sv+prova1@gmail.com",
+    "password": "GRDSTL55",
+    "name": "irina-organizer"
+  },
+  "user1_1": {
+    "email": "luchiana.sv+prova2@gmail.com",
+    "password": "GRDSTL55",
+    "name": "irina1"
+  },
+  "user1_2": {
+    "email": "luchiana.sv+prova3@gmail.com",
+    "password": "test3456",
+    "name": "irina2"
+  },
+  "user1_3": {
+    "email": "luchiana.sv+prova4@gmail.com",
+    "password": "test1983",
+    "name": "irina3"
+  },
+  "user1_4": {
+    "email": "luchiana.sv+prova5@gmail.com",
+    "password": "test$12£",
+    "name": "irina4"
+  }
+}

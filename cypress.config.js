@@ -6,6 +6,10 @@ const addCucumberPreprocessorPlugin =
   require("@badeball/cypress-cucumber-preprocessor").addCucumberPreprocessorPlugin;
 
 module.exports = defineConfig({
+  projectId: "jocpye",
+  pageLoadTimeout: 10000,
+  viewportHeight: 768,
+  viewportWidth: 1366,
   e2e: {
     baseUrl: "https://santa-secret.ru",
     specPattern: "**/*.feature",
