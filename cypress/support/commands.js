@@ -135,7 +135,7 @@ Cypress.Commands.add("addParticipantsManually", (users) => {
 Cypress.Commands.add("conductDraw", () => {
   cy.get(menuBoxesPage.menuBoxesLink).click();
   cy.get(menuBoxesPage.boxCard).click();
-  cy.get(drawPage.drawLink).click();
+  cy.get(drawPage.drawLink).click({ force: true });
   cy.get(generalElements.submitButton).click();
   cy.get(drawPage.modalSubmitButton).click({ force: true });
   cy.waitUntil(() => cy.get(drawPage.santaTableLink).should("be.visible"), {

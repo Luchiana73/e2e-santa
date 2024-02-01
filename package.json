@@ -12,7 +12,11 @@
     "cy:nokey:parallel": "npm run cy:nokey:spec1 & npm run cy:nokey:spec2",
     "cy:spec1": "cypress run --spec cypress/e2e/test/* --config-file cypress.config.js --browser chrome --record --key 2732aef1-fa93-433e-b6f6-10fb2b3ccc1a",
     "cy:spec2": "cypress run --spec cypress/e2e/test2/* --config-file cypress.config2.js --browser electron --record --key 2732aef1-fa93-433e-b6f6-10fb2b3ccc1a",
-    "cy:parallel": "concurrently \"npm run cy:spec1 -- --group Chrome --ci-build-id %BUILD_ID% --parallel\" \"npm run cy:spec2 -- --group Electron --ci-build-id %BUILD_ID% --parallel\""
+    "cy:parallel": "concurrently \"npm run cy:spec1 -- --group Chrome --ci-build-id %BUILD_ID% --parallel\" \"npm run cy:spec2 -- --group Electron --ci-build-id %BUILD_ID% --parallel\"",
+    "cy:allure:run": "npx cypress run --env allure=true",
+    "allure:report": "npx allure generate --clean",
+    "allure:open": "allure open",
+    "allure:clean:results": "rm -rf allure-results/*"
   },
   "author": "",
   "license": "ISC",
@@ -20,8 +24,11 @@
     "@badeball/cypress-cucumber-preprocessor": "^20.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@faker-js/faker": "^8.3.1",
+    "@shelex/cypress-allure-plugin": "^2.40.1",
+    "allure-commandline": "^2.26.0",
+    "allure-cucumberjs": "^2.11.1",
     "concurrently": "^8.2.2",
-    "cypress": "^13.6.2",
+    "cypress": "^12.13.0",
     "cypress-wait-until": "^3.0.1",
     "esbuild": "^0.19.11"
   },

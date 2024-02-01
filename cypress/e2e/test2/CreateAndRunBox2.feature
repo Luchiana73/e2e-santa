@@ -7,7 +7,7 @@ Then user is on dashboard page
 And box identifier created
 And user creates a new box
 
-Scenario: User invites psrticipants via link
+Scenario: User invites participants via link
 Given user clicks the button
 When user copies invite link
 Then user logs out
